@@ -24,49 +24,49 @@ function KhodamListCard() {
 
   return (
     <div className="max-w-xl mx-auto rounded-lg p-4 gap-x-4 border-gray-700">
-    {/* Menu Card */}
-    <div className="flex flex-col gap-y-2 mb-5">
-      <div className="flex justify-start items-center gap-x-4 z-20">
-        <a href="/" className="font-light text-white">Cek Khodam Kamu</a>
-        <a href="/listkhodam" className="font-medium text-white underline underline-offset-[14.5px] decoration-2">List Khodam</a>
+      {/* Menu Card */}
+      <div className="flex flex-col gap-y-2 mb-5">
+        <div className="flex justify-start items-center gap-x-4 z-20">
+          <a href="/" className="font-light text-white text-sm md:text-base">Cek Khodam Kamu</a>
+          <a href="/listkhodam" className="font-medium text-white underline underline-offset-[14.5px] decoration-2 text-sm md:text-base">List Khodam</a>
+        </div>
+        <hr className="border-t-2 border-gray-700 z-10" />
       </div>
-      <hr className="border-t-2 border-gray-700 z-10" />
-    </div>
-    {/* Card */}
-    <div className="flex flex-col gap-y-2 border-2 border-gray-700 rounded-xl bg-gray-900">
-      <div className="flex flex-col justify-center items-center py-8">
-        <h1 className="text-white text-4xl font-bold mb-8">Daftar Khodam</h1>
-        <div className="w-full max-w-3xl px-4">
-          <div className="bg-gray-800 rounded-lg p-4">
-            <table className="w-full">
-              <thead>
-                <tr className="text-white border-b border-gray-700">
-                  <th className="py-2 px-4 text-left">Nama</th>
-                  <th className="py-2 px-4 text-left">Khodam</th>
-                  <th className="py-2 px-4 text-left">Waktu Check</th>
-                </tr>
-              </thead>
-              <tbody>
-                {results.length === 0 ? (
-                  <tr>
-                    <td colSpan="3" className="py-3 px-4 text-center text-gray-300">Loading data...</td>
+      {/* Card */}
+      <div className="flex flex-col gap-y-2 border-2 border-gray-700 rounded-xl bg-gray-900">
+        <div className="flex flex-col justify-center items-center py-4 md:py-8">
+          <h1 className="text-white text-2xl md:text-4xl font-bold mb-4 md:mb-8">Daftar Khodam</h1>
+          <div className="w-full max-w-3xl px-2 md:px-4">
+            <div className="bg-gray-800 rounded-lg p-2 md:p-4 overflow-x-auto">
+              <table className="w-full min-w-[500px]">
+                <thead>
+                  <tr className="text-white border-b border-gray-700">
+                    <th className="py-2 px-2 md:px-4 text-left text-sm md:text-base">Nama</th>
+                    <th className="py-2 px-2 md:px-4 text-left text-sm md:text-base">Khodam</th>
+                    <th className="py-2 px-2 md:px-4 text-left text-sm md:text-base">Waktu Check</th>
                   </tr>
-                ) : (
-                  results.map(result => (
-                    <tr key={result.id} className="text-gray-300 border-b border-gray-700">
-                      <td className="py-3 px-4">{result.nama_khodam}</td>
-                      <td className="py-3 px-4">{result.hasil_khodam}</td>
-                      <td className="py-3 px-4">{new Date(result.tanggal).toLocaleString()}</td>
+                </thead>
+                <tbody>
+                  {results.length === 0 ? (
+                    <tr>
+                      <td colSpan="3" className="py-3 px-2 md:px-4 text-center text-gray-300 text-sm md:text-base">Loading data...</td>
                     </tr>
-                  ))
-                )}
-              </tbody>
-            </table>
+                  ) : (
+                    results.map(result => (
+                      <tr key={result.id} className="text-gray-300 border-b border-gray-700">
+                        <td className="py-2 md:py-3 px-2 md:px-4 text-sm md:text-base">{result.nama_khodam}</td>
+                        <td className="py-2 md:py-3 px-2 md:px-4 text-sm md:text-base">{result.hasil_khodam}</td>
+                        <td className="py-2 md:py-3 px-2 md:px-4 text-sm md:text-base">{new Date(result.tanggal).toLocaleString()}</td>
+                      </tr>
+                    ))
+                  )}
+                </tbody>
+              </table>
+            </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
   )
 }
 

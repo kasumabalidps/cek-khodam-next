@@ -98,33 +98,33 @@ function KhodamCard() {
         {/* Menu Card */}
         <div className="flex flex-col gap-y-2 mb-5">
             <div className="flex justify-start items-center gap-x-4 z-20">
-                <a href="/" className="font-medium text-white underline underline-offset-[14.5px] decoration-2">Cek Khodam Kamu</a>
-                <a href="/listkhodam" className="font-light text-white">List Khodam</a>
+                <a href="/" className="font-medium text-white underline underline-offset-[14.5px] decoration-2 text-sm md:text-base">Cek Khodam Kamu</a>
+                <a href="/listkhodam" className="font-light text-white text-sm md:text-base">List Khodam</a>
             </div>
             <hr className="border-t-2 border-gray-700 z-10" />
         </div>
         {/* Card */}
         <div className="flex flex-col gap-y-2 border-2 border-gray-700 rounded-xl bg-gray-900">
-            <div className="flex flex-col justify-center items-center py-8">
-                <img src={gambar} alt="anya" className="w-64 h-auto rounded-full mb-4" />
+            <div className="flex flex-col justify-center items-center py-4 md:py-8">
+                <img src={gambar} alt="anya" className="w-48 md:w-64 h-auto rounded-full mb-2 md:mb-4" />
                 {!isSelesai && !isChecking && (
-                  <h1 className="text-white text-4xl font-bold pt-4">Cek Khodam Kamu!</h1>
+                  <h1 className="text-white text-2xl md:text-4xl font-bold pt-2 md:pt-4">Cek Khodam Kamu!</h1>
                 )}
                 {isChecking && (
-                  <div className="text-white mt-4 text-2xl">
+                  <div className="text-white mt-2 md:mt-4 text-xl md:text-2xl">
                     {listMantra.map((text, index) => (
                       <p key={index} className={`${index === currentIndex ? 'block' : 'hidden'}`}>
-                        {text} {/* <span className='font-bold'>{namaKhodam}</span> */}
+                        {text}
                       </p>
                     ))}
                   </div>
                 )}
                 {isSelesai && (
                   <div className="flex flex-col gap-y-2">
-                    <p className="text-white text-2xl">Khodam <span className='font-bold'>{namaKhodam}</span> adalah:</p>
-                    <h1 className='text-center text-pink-300 text-4xl pb-6 font-bold underline underline-offset-[10px]'>{hasilKhodam}</h1>
+                    <p className="text-white text-xl md:text-2xl">Khodam <span className='font-bold'>{namaKhodam}</span> adalah:</p>
+                    <h1 className='text-center text-pink-300 text-2xl md:text-4xl pb-3 md:pb-6 font-bold underline underline-offset-[10px]'>{hasilKhodam}</h1>
                     <button 
-                      className="bg-blue-500 text-white p-2 rounded-md"
+                      className="bg-blue-500 text-white p-2 rounded-md text-sm md:text-base"
                       onClick={() => {
                         setIsSelesai(false)
                         setNamaKhodam('')
@@ -137,20 +137,20 @@ function KhodamCard() {
                   </div>
                 )}
                 {error && (
-                  <p className="text-red-500 mt-2">{error}</p>
+                  <p className="text-red-500 mt-2 text-sm md:text-base">{error}</p>
                 )}
             </div>
             {!isChecking && !isSelesai && (
-              <div className="flex gap-x-4 p-4">
+              <div className="flex flex-col md:flex-row gap-y-2 md:gap-x-4 p-2 md:p-4">
                   <input 
                     type="text" 
-                    className="w-full p-2 rounded-md bg-gray-700 text-white" 
+                    className="w-full p-2 rounded-md bg-gray-700 text-white text-sm md:text-base" 
                     placeholder="Masukkan Nama Khodam"
                     value={namaKhodam}
                     onChange={(e) => setNamaKhodam(e.target.value)}
                   /> 
                   <button 
-                    className="bg-blue-500 text-white p-2 rounded-md"
+                    className="bg-blue-500 text-white p-2 rounded-md text-sm md:text-base"
                     onClick={handleCekKhodam}
                   >
                     Terawang
