@@ -1,4 +1,3 @@
-```markdown
 # Khodam Checker
 
 A fun, interactive tool to check for "khodam" (spiritual guardians), built with Next.js. This project is designed to provide an entertaining experience for users interested in exploring mystical concepts.
@@ -34,6 +33,5 @@ A fun, interactive tool to check for "khodam" (spiritual guardians), built with 
 
 ## License
 This project is for entertainment purposes. Use it responsibly!
-```
 
 Replace `<repository-url>` and `<repository-directory>` with your actual repository details. This `README` covers the basics for users and developers.
