@@ -7,7 +7,7 @@ function KhodamListCard() {
     <div className="flex flex-col gap-y-2 mb-5">
       <div className="flex justify-start items-center gap-x-4 z-20">
         <a href="/" className="font-light text-white">Cek Khodam Kamu</a>
-        <a href="/listkhodam" className="font-medium text-white underline underline-offset-[14.5px] decoration-2">Adu Khodam Kamu</a>
+        <a href="/listkhodam" className="font-medium text-white underline underline-offset-[14.5px] decoration-2">List Khodam</a>
       </div>
       <hr className="border-t-2 border-gray-700 z-10" />
     </div>
