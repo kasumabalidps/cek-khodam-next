@@ -7,7 +7,7 @@ function KhodamListCard() {
   const [results, setResults] = useState([])
   const [isLoading, setIsLoading] = useState(true)
   const [currentPage, setCurrentPage] = useState(1)
-  const resultsPerPage = 10
+  const resultsPerPage = 6
 
   useEffect(() => {
     const fetchKhodamResults = async () => {
