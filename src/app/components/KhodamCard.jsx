@@ -48,7 +48,7 @@ function KhodamCard() {
           }
           return prevIndex + 1;
         });
-      }, listMantra.length * 500);
+      }, listMantra.length * 800);
     }
     return () => {
       clearInterval(interval);
@@ -114,7 +114,7 @@ function KhodamCard() {
                   <div className="text-white mt-4 text-2xl">
                     {listMantra.map((text, index) => (
                       <p key={index} className={`${index === currentIndex ? 'block' : 'hidden'}`}>
-                        {text} <span className='font-bold'>{namaKhodam}</span>
+                        {text} {/* <span className='font-bold'>{namaKhodam}</span> */}
                       </p>
                     ))}
                   </div>

@@ -1,6 +1,27 @@
-import React from 'react'
+'use client'
+
+import React, { useEffect, useState } from 'react'
+import { supabase } from '@/utils/supabase'
 
 function KhodamListCard() {
+  const [results, setResults] = useState([])
+
+  useEffect(() => {
+    const fetchKhodamResults = async () => {
+      const { data, error } = await supabase
+        .from('khodam_results')
+        .select('id, nama_khodam, hasil_khodam, tanggal')
+
+      if (error) {
+        console.error('Error fetching khodam results:', error)
+      } else {
+        setResults(data)
+      }
+    }
+
+    fetchKhodamResults()
+  }, [])
+
   return (
     <div className="max-w-xl mx-auto rounded-lg p-4 gap-x-4 border-gray-700">
     {/* Menu Card */}
@@ -26,21 +47,19 @@ function KhodamListCard() {
                 </tr>
               </thead>
               <tbody>
-                <tr className="text-gray-300 border-b border-gray-700">
-                  <td className="py-3 px-4">Budi</td>
-                  <td className="py-3 px-4">Khodam Air</td>
-                  <td className="py-3 px-4">2024-01-20 13:45</td>
-                </tr>
-                <tr className="text-gray-300 border-b border-gray-700">
-                  <td className="py-3 px-4">Ani</td>
-                  <td className="py-3 px-4">Khodam Bauk</td>
-                  <td className="py-3 px-4">2024-01-20 14:30</td>
-                </tr>
-                <tr className="text-gray-300 border-b border-gray-700">
-                  <td className="py-3 px-4">Dani</td>
-                  <td className="py-3 px-4">Khodam Tanah</td>
-                  <td className="py-3 px-4">2024-01-20 15:15</td>
-                </tr>
+                {results.length === 0 ? (
+                  <tr>
+                    <td colSpan="3" className="py-3 px-4 text-center text-gray-300">Loading data...</td>
+                  </tr>
+                ) : (
+                  results.map(result => (
+                    <tr key={result.id} className="text-gray-300 border-b border-gray-700">
+                      <td className="py-3 px-4">{result.nama_khodam}</td>
+                      <td className="py-3 px-4">{result.hasil_khodam}</td>
+                      <td className="py-3 px-4">{new Date(result.tanggal).toLocaleString()}</td>
+                    </tr>
+                  ))
+                )}
               </tbody>
             </table>
           </div>
