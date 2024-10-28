@@ -122,8 +122,8 @@ function KhodamCard() {
                 )}
                 {isSelesai && (
                   <div className="flex flex-col gap-y-2">
-                    <p className="text-white text-xl md:text-2xl">Khodam <span className='font-bold'>{namaKhodam}</span> adalah:</p>
-                    <h1 className='text-center text-pink-300 text-2xl md:text-4xl pb-3 md:pb-6 font-bold underline underline-offset-[10px]'>{hasilKhodam}</h1>
+                    <p className="text-white text-xl md:text-2xl text-center">Khodam <span className='font-bold'>{namaKhodam}</span> adalah:</p>
+                    <h1 className='text-center text-pink-300 text-lg sm:text-xl md:text-2xl lg:text-4xl pb-3 md:pb-6 font-bold underline underline-offset-[10px] break-words px-4'>{hasilKhodam}</h1>
                     <button 
                       className="bg-blue-500 text-white p-2 rounded-md text-sm md:text-base"
                       onClick={() => {
