@@ -3,9 +3,9 @@ import DeveloperHero from '../components/DeveloperHero'
 
 export default function Developer() {
   return (
-    <div>
+    <main>
       <Navbar />
       <DeveloperHero />
-    </div>
+    </main>
   )
 }
