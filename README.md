@@ -8,13 +8,13 @@ A fun, interactive tool to check for "khodam" (spiritual guardians), built with 
 - Responsive and user-friendly interface
 
 ## Tech Stack
-- **Frontend:** Next.js
+- **Frontend and Backend:** Next.js
 
 ## Getting Started
 
 1. **Clone the repository:**
    ```bash
-   git clone [<repository-url>](https://github.com/kasumabalidps/cek-khodam-next.git)
+   git clone https://github.com/kasumabalidps/cek-khodam-next.git
    cd <repository-directory>
    ```
 
