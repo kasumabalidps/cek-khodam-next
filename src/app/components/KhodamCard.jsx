@@ -148,10 +148,11 @@ function KhodamCard() {
                     className="w-full p-2 rounded-md bg-gray-700 text-white text-sm md:text-base" 
                     placeholder="Masukkan Nama Khodam"
                     value={namaKhodam}
-                    onChange={(e) => setNamaKhodam(e.target.value)}
+                    onChange={(e) => setNamaKhodam(e.target.value.slice(0, 25))}
+                    maxLength={25}
                   /> 
                   <button 
-                    className="bg-blue-500 text-white p-2 rounded-md text-sm md:text-base"
+                    className="bg-blue-500 text-white p-3 py-2 rounded-md text-sm md:text-base"
                     onClick={handleCekKhodam}
                   >
                     Terawang
