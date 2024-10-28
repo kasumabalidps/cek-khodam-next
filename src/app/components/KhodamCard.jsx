@@ -119,7 +119,7 @@ function KhodamCard() {
                   <h1 className="text-white text-2xl md:text-4xl font-bold pt-2 md:pt-4 animate-pulse">Cek Khodam Kamu! 🌟</h1>
                 )}
                 {isChecking && (
-                  <div className="text-white mt-2 md:mt-4 text-xl md:text-2xl">
+                  <div className="text-white mt-2 md:mt-4 text-xl md:text-2xl px-4 md:px-0">
                     {listMantra.map((text, index) => (
                       <p 
                         key={index} 
@@ -131,7 +131,7 @@ function KhodamCard() {
                           bg-gradient-to-r from-purple-500 via-pink-500 to-purple-500
                           bg-clip-text text-transparent
                           font-bold
-                          p-4
+                          p-4 mx-2 md:mx-0
                           rounded-lg
                           shadow-lg
                           border border-purple-500/30
