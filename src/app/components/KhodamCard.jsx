@@ -7,7 +7,7 @@ import { FaXTwitter, FaDiscord } from "react-icons/fa6";
 function KhodamCard() {
   const [namaKhodam, setNamaKhodam] = useState('')
   const [isChecking, setIsChecking] = useState(false)
-  const [gambar, setGambar] = useState('anya.png')
+  const [gambar, setGambar] = useState('anyadefault.png')
   const [hasilKhodam, setHasilKhodam] = useState('')
   const [isSelesai, setIsSelesai] = useState(false)
   const [currentIndex, setCurrentIndex] = useState(0)
@@ -105,60 +105,77 @@ function KhodamCard() {
             <hr className="border-t-2 border-gray-700 z-10" />
         </div>
         {/* Card */}
-        <div className="flex flex-col gap-y-2 border-2 border-gray-700 rounded-xl bg-gray-900">
+        <div className="flex flex-col gap-y-2 border-2 border-gray-700 rounded-xl bg-gradient-to-b from-gray-900 to-gray-800 shadow-lg hover:shadow-xl transition-all duration-300">
             <div className="flex flex-col justify-center items-center py-4 md:py-8">
-                <img src={gambar} alt="anya" className="w-48 md:w-64 h-auto rounded-full mb-2 md:mb-4" />
+                <div className="relative">
+                    <img src={gambar} alt="anya" className="w-48 md:w-64 h-auto rounded-full mb-2 md:mb-4 border-4 border-pink-500 shadow-lg transform hover:scale-105 transition-transform duration-300" />
+                    {!isChecking && !isSelesai && (
+                        <div className="absolute -bottom-2 left-1/2 transform -translate-x-1/2">
+                            <span className="animate-bounce inline-block px-4 py-2 bg-pink-500 text-white rounded-full text-xs md:text-sm">Haii...</span>
+                        </div>
+                    )}
+                </div>
                 {!isSelesai && !isChecking && (
-                  <h1 className="text-white text-2xl md:text-4xl font-bold pt-2 md:pt-4">Cek Khodam Kamu!</h1>
+                  <h1 className="text-white text-2xl md:text-4xl font-bold pt-2 md:pt-4 animate-pulse">Cek Khodam Kamu! 🌟</h1>
                 )}
                 {isChecking && (
                   <div className="text-white mt-2 md:mt-4 text-xl md:text-2xl">
                     {listMantra.map((text, index) => (
-                      <p key={index} className={`${index === currentIndex ? 'block' : 'hidden'}`}>
+                      <p 
+                        key={index} 
+                        className={`
+                          ${index === currentIndex ? 'block' : 'hidden'}
+                          animate-pulse
+                          transition-all duration-300
+                          transform hover:scale-105
+                          bg-gradient-to-r from-purple-500 via-pink-500 to-purple-500
+                          bg-clip-text text-transparent
+                          font-bold
+                          p-4
+                          rounded-lg
+                          shadow-lg
+                          border border-purple-500/30
+                          backdrop-blur-sm
+                          flex items-center justify-center gap-2
+                        `}
+                      >
+                        <span className="animate-spin">✨</span>
                         {text}
+                        <span className="animate-spin">✨</span>
                       </p>
                     ))}
                   </div>
                 )}
-                {isSelesai && (
-                  <div className="flex flex-col gap-y-2">
-                    <p className="text-white text-xl md:text-2xl text-center">Khodam <span className='font-bold'>{namaKhodam}</span> adalah:</p>
-                    <h1 className='text-center text-pink-300 text-lg sm:text-xl md:text-2xl lg:text-4xl pb-3 md:pb-6 font-bold underline underline-offset-[10px] break-words px-4'>{hasilKhodam}</h1>
-                    <button 
-                      className="bg-blue-500 text-white p-2 rounded-md text-sm md:text-base"
-                      onClick={() => {
-                        setIsSelesai(false)
-                        setNamaKhodam('')
-                        setGambar('anya.png')
-                        setError(null)
-                      }}
-                    >
-                      Cek Orang Lain
-                    </button>
+                {isSelesai && !isChecking && (
+                  <div className="text-white mt-4 text-center">
+                    <h2 className="text-xl md:text-2xl font-bold mb-4 bg-gradient-to-r from-pink-500 to-purple-500 text-transparent bg-clip-text animate-pulse">✨ Hasil Terawangan ✨</h2>
+                    <div className="bg-gray-800/50 p-4 rounded-lg border border-gray-700 shadow-lg">
+                      <p className="text-lg md:text-xl font-medium">{hasilKhodam}</p>
+                      <p className="text-sm text-gray-400 mt-2">~ Terawangan Khodam ~</p>
+                    </div>
                   </div>
                 )}
-                {error && (
-                  <p className="text-red-500 mt-2 text-sm md:text-base">{error}</p>
-                )}
-            </div>
             {!isChecking && !isSelesai && (
-              <div className="flex flex-col md:flex-row gap-y-2 md:gap-x-4 p-2 md:p-4">
+              <div className="flex flex-col md:flex-row gap-y-2 md:gap-x-4 p-2 md:p-4 mt-6">
                   <input 
                     type="text" 
-                    className="w-full p-2 rounded-md bg-gray-700 text-white text-sm md:text-base" 
+                    className="w-full p-3 rounded-lg bg-gray-700/50 text-white text-sm md:text-base border border-gray-600 focus:border-blue-500 focus:outline-none transition-colors" 
                     placeholder="Masukkan Nama Khodam"
                     value={namaKhodam}
-                    onChange={(e) => setNamaKhodam(e.target.value.slice(0, 25))}
-                    maxLength={25}
+                    onChange={(e) => setNamaKhodam(e.target.value)}
                   /> 
                   <button 
-                    className="bg-blue-500 text-white p-3 py-2 rounded-md text-sm md:text-base"
+                    className="bg-blue-500 hover:bg-blue-600 text-white p-3 rounded-lg text-sm md:text-base transition-colors shadow-lg"
                     onClick={handleCekKhodam}
                   >
                     Terawang
                   </button>
               </div>
             )}
+            {error && (
+              <p className="text-red-500 mt-4 text-sm md:text-base bg-red-100/10 px-6 py-3 rounded-lg">{error}</p>
+            )}
+            </div>
             <div className='flex flex-col justify-center items-center pb-8'>
               <hr className="border-t-2 border-gray-700 my-4 w-[95%] mx-auto" />
               <div className='flex justify-center items-center gap-x-4'>
