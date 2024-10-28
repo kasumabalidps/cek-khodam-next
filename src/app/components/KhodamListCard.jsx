@@ -5,7 +5,9 @@ import { supabase } from '@/utils/supabase'
 
 function KhodamListCard() {
   const [results, setResults] = useState([])
-  const [isLoading, setIsLoading] = useState(true) // Tambahkan state loading
+  const [isLoading, setIsLoading] = useState(true)
+  const [currentPage, setCurrentPage] = useState(1)
+  const resultsPerPage = 10
 
   useEffect(() => {
     const fetchKhodamResults = async () => {
@@ -28,6 +30,19 @@ function KhodamListCard() {
     
     fetchKhodamResults()
   }, [])
+
+  const indexOfLastResult = currentPage * resultsPerPage
+  const indexOfFirstResult = indexOfLastResult - resultsPerPage
+  const currentResults = results.slice(indexOfFirstResult, indexOfLastResult)
+
+  const paginate = (pageNumber) => setCurrentPage(pageNumber)
+
+  const totalPages = Math.ceil(results.length / resultsPerPage)
+
+  const pageNumbers = []
+  for (let i = 1; i <= totalPages; i++) {
+    pageNumbers.push(i)
+  }
 
   return (
     <div>
@@ -59,12 +74,12 @@ function KhodamListCard() {
                       <tr>
                         <td colSpan="3" className="py-3 px-2 md:px-4 text-center text-gray-300 text-sm md:text-base">Loading data...</td>
                       </tr>
-                    ) : results.length === 0 ? (
+                    ) : currentResults.length === 0 ? (
                       <tr>
                         <td colSpan="3" className="py-3 px-2 md:px-4 text-center text-gray-300 text-sm md:text-base">Tidak ada data</td>
                       </tr>
                     ) : (
-                      results.map(result => (
+                      currentResults.map(result => (
                         <tr key={result.id} className="text-gray-300 border-b border-gray-700">
                           <td className="py-2 md:py-3 px-2 md:px-4 text-sm md:text-base">{result.nama_khodam}</td>
                           <td className="py-2 md:py-3 px-2 md:px-4 text-sm md:text-base">{result.hasil_khodam}</td>
@@ -76,6 +91,24 @@ function KhodamListCard() {
                     )}
                   </tbody>
                 </table>
+                {/* Pagination */}
+                {!isLoading && results.length > 0 && (
+                  <div className="flex justify-center items-center mt-4 gap-2">
+                    {pageNumbers.map(number => (
+                      <button
+                        key={number}
+                        onClick={() => paginate(number)}
+                        className={`px-3 py-1 rounded ${
+                          currentPage === number
+                            ? 'bg-blue-500 text-white'
+                            : 'bg-gray-700 text-gray-300 hover:bg-gray-600'
+                        }`}
+                      >
+                        {number}
+                      </button>
+                    ))}
+                  </div>
+                )}
               </div>
             </div>
           </div>

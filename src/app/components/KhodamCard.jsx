@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from 'react'
 import { supabase } from '@/utils/supabase'
+import { FaXTwitter, FaDiscord } from "react-icons/fa6";
 
 function KhodamCard() {
   const [namaKhodam, setNamaKhodam] = useState('')
@@ -157,6 +158,19 @@ function KhodamCard() {
                   </button>
               </div>
             )}
+            <div className='flex flex-col justify-center items-center pb-8'>
+              <hr className="border-t-2 border-gray-700 my-4 w-[95%] mx-auto" />
+              <div className='flex justify-center items-center gap-x-4'>
+                <a href="https://twitter.com/intent/tweet" target="_blank" rel="noopener noreferrer" className="flex items-center gap-x-1">
+                  <FaXTwitter className='text-gray-300 text-xl hover:text-gray-300 transition-colors' />
+                  <p className='text-gray-300 text-xs md:text-base hover:text-gray-300 transition-colors'>Bagikan</p>
+                </a>
+                <a href="https://discord.com/channels" target="_blank" rel="noopener noreferrer" className="flex items-center gap-x-1">
+                  <FaDiscord className='text-blue-600 text-xl hover:text-gray-300 transition-colors' />
+                  <p className='text-blue-600 text-xs md:text-base hover:text-gray-300 transition-colors'>Bagikan</p>
+                </a>
+              </div>
+            </div>
         </div>
     </div>
   )
