@@ -1,37 +1,74 @@
 # Khodam Checker
 
-A fun, interactive tool to check for "khodam" (spiritual guardians), built with Next.js. This project is designed to provide an entertaining experience for users interested in exploring mystical concepts.
+A modern web application built with Next.js for exploring and checking "khodam" (spiritual guardians). This project combines mystical concepts with contemporary web technology to create an engaging user experience.
 
 ## Features
-- Quick and easy "khodam" checking for fun
-- Built with modern JavaScript using Next.js
-- Responsive and user-friendly interface
+
+- **Interactive Khodam Checking**: User-friendly interface for exploring spiritual connections
+- **Khodam List View**: Browse and learn about different types of spiritual guardians
+- **Developer Information**: Dedicated section about the project and its creators
+- **Modern UI/UX**: Responsive design with Tailwind CSS styling
+- **Database Integration**: Powered by Supabase for data management
 
 ## Tech Stack
-- **Frontend and Backend:** Next.js
+
+- **Frontend Framework**: Next.js
+- **Styling**: Tailwind CSS
+- **Database**: Supabase
+- **Assets**: SVG icons and graphics
+
+## Project Structure
+
+```
+├── public/          # Static assets (SVG files)
+├── src/
+│   ├── app/        # Next.js application files
+│   │   ├── components/    # React components
+│   │   ├── developer/    # Developer page
+│   │   ├── listkhodam/   # Khodam list page
+│   │   └── globals.css   # Global styles
+│   └── utils/      # Utility functions
+```
 
 ## Getting Started
 
 1. **Clone the repository:**
    ```bash
    git clone https://github.com/kasumabalidps/cek-khodam-next.git
-   cd <repository-directory>
+   cd cek-khodam-next
    ```
 
 2. **Install dependencies:**
    ```bash
-   npm install or yarn install
+   npm install
+   # or
+   yarn install
    ```
 
-3. **Run the development server:**
+3. **Set up environment variables:**
+   Create a `.env.local` file with your Supabase credentials
+
+4. **Run the development server:**
    ```bash
-   npm run dev or yarn dev
+   npm run dev
+   # or
+   yarn dev
    ```
 
-4. **Visit the app:**
-   Open [http://localhost:3000](http://localhost:3000) in your browser.
+5. **Open the application:**
+   Visit [http://localhost:3000](http://localhost:3000) in your browser
+
+## Components
+
+- `KhodamCard`: Main interface for khodam checking
+- `KhodamListCard`: Displays list of available khodam
+- `DeveloperHero`: Information about the development team
+- `Navbar`: Navigation component
 
 ## License
-This project is for entertainment purposes. Use it responsibly!
 
-Replace `<repository-url>` and `<repository-directory>` with your actual repository details. This `README` covers the basics for users and developers.
+This project is intended for entertainment and educational purposes only. Use responsibly!
+
+## Contributing
+
+Contributions are welcome! Please feel free to submit a Pull Request.
