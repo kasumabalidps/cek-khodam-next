@@ -1,10 +1,12 @@
 'use client'
 
 import React, { useState, useEffect } from 'react'
+import { useRouter, usePathname } from 'next/navigation'
+import Link from 'next/link'
 
 function Navbar() {
+  const pathname = usePathname()
   const [isOpen, setIsOpen] = useState(false)
-  const [currentPath, setCurrentPath] = useState('/')
 
   useEffect(() => {
     setCurrentPath(window.location.pathname)
@@ -48,11 +50,11 @@ function Navbar() {
 
         {/* Desktop Menu */}
         <ul className="hidden md:flex gap-x-5 text-white text-base">
-          <li className={`${currentPath === '/' || currentPath === '/listkhodam' ? 'font-bold' : 'font-regular'} hover:text-gray-300 transition-colors`}>
-            <a href="/">Home</a>
+          <li className={`${pathname === '/' || pathname === '/listkhodam' ? 'font-bold' : 'font-regular'} hover:text-gray-300 transition-colors`}>
+            <Link href="/">Home</Link>
           </li>
-          <li className={`${currentPath === '/developer' ? 'font-bold' : 'font-regular'} hover:text-gray-300 transition-colors`}>
-            <a href="/developer">Developer</a>
+          <li className={`${pathname === '/developer' ? 'font-bold' : 'font-regular'} hover:text-gray-300 transition-colors`}>
+            <Link href="/developer">Developer</Link>
           </li>
         </ul>
       </div>
@@ -60,11 +62,11 @@ function Navbar() {
       {/* Mobile Menu */}
       <div className={`${isOpen ? 'block' : 'hidden'} md:hidden mt-4`}>
         <ul className="flex flex-col gap-y-2 text-white text-sm">
-          <li className={`${currentPath === '/' || currentPath === '/listkhodam' ? 'font-bold' : 'font-regular'} hover:text-gray-300 transition-colors`}>
-            <a href="/">Home</a>
+          <li className={`${pathname === '/' || pathname === '/listkhodam' ? 'font-bold' : 'font-regular'} hover:text-gray-300 transition-colors`}>
+            <Link href="/">Home</Link>
           </li>
-          <li className={`${currentPath === '/developer' ? 'font-bold' : 'font-regular'} hover:text-gray-300 transition-colors`}>
-            <a href="/developer">Developer</a>
+          <li className={`${pathname === '/developer' ? 'font-bold' : 'font-regular'} hover:text-gray-300 transition-colors`}>
+            <Link href="/developer">Developer</Link>
           </li>
         </ul>
       </div>

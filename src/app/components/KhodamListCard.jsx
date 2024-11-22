@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useCallback, useMemo } from 'react'
 import { supabase } from '@/utils/supabase'
 
 function KhodamListCard() {
@@ -8,28 +8,29 @@ function KhodamListCard() {
   const [isLoading, setIsLoading] = useState(true)
   const [currentPage, setCurrentPage] = useState(1)
   const resultsPerPage = 6
+  const [error, setError] = useState(null)
+
+  const fetchKhodamResults = useCallback(async () => {
+    setIsLoading(true);
+    try {
+      const { data, error } = await supabase
+        .from('khodam_results')
+        .select('*')
+        .order('tanggal', { ascending: false });
+
+      if (error) throw error;
+      setResults(data);
+    } catch (error) {
+      console.error('Error:', error);
+      setError('Gagal memuat data');
+    } finally {
+      setIsLoading(false);
+    }
+  }, []);
 
   useEffect(() => {
-    const fetchKhodamResults = async () => {
-      try {
-        const { data, error } = await supabase
-          .from('khodam_results')
-          .select('id, nama_khodam, hasil_khodam, tanggal')
-
-        if (error) {
-          console.error('Error fetching khodam results:', error)
-        } else {
-          setResults(data)
-        }
-      } catch (error) {
-        console.error('Error:', error)
-      } finally {
-        setIsLoading(false)
-      }
-    }
-    
     fetchKhodamResults()
-  }, [])
+  }, [fetchKhodamResults])
 
   const indexOfLastResult = currentPage * resultsPerPage
   const indexOfFirstResult = indexOfLastResult - resultsPerPage
@@ -43,6 +44,11 @@ function KhodamListCard() {
   for (let i = 1; i <= totalPages; i++) {
     pageNumbers.push(i)
   }
+
+  const paginatedResults = useMemo(() => {
+    const start = (currentPage - 1) * resultsPerPage;
+    return results.slice(start, start + resultsPerPage);
+  }, [currentPage, results, resultsPerPage]);
 
   return (
     <div>
