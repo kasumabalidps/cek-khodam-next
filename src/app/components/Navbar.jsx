@@ -9,7 +9,7 @@ function Navbar() {
   const [isOpen, setIsOpen] = useState(false)
 
   return (
-    <nav className="max-w-6xl mx-auto py-4 md:py-8 px-4">
+    <nav className="max-w-6xl mx-auto py-4 md:py-8 px-4 relative z-50 bg-gray-800">
       <div className="flex justify-between items-center">
         <h1 className="text-xl md:text-2xl font-bold uppercase text-white underline underline-offset-4 decoration-2">
           Cek Khodam
@@ -46,8 +46,11 @@ function Navbar() {
 
         {/* Desktop Menu */}
         <ul className="hidden md:flex gap-x-5 text-white text-base">
-          <li className={`${pathname === '/' || pathname === '/listkhodam' ? 'font-bold' : 'font-regular'} hover:text-gray-300 transition-colors`}>
+          <li className={`${pathname === '/' ? 'font-bold' : 'font-regular'} hover:text-gray-300 transition-colors`}>
             <Link href="/">Home</Link>
+          </li>
+          <li className={`${pathname === '/listkhodam' ? 'font-bold' : 'font-regular'} hover:text-gray-300 transition-colors`}>
+            <Link href="/listkhodam">List Khodam</Link>
           </li>
           <li className={`${pathname === '/developer' ? 'font-bold' : 'font-regular'} hover:text-gray-300 transition-colors`}>
             <Link href="/developer">Developer</Link>
@@ -56,10 +59,13 @@ function Navbar() {
       </div>
 
       {/* Mobile Menu */}
-      <div className={`${isOpen ? 'block' : 'hidden'} md:hidden mt-4`}>
+      <div className={`${isOpen ? 'block' : 'hidden'} md:hidden mt-4 absolute w-full left-0 bg-gray-800 border-t border-gray-700 p-4`}>
         <ul className="flex flex-col gap-y-2 text-white text-sm">
-          <li className={`${pathname === '/' || pathname === '/listkhodam' ? 'font-bold' : 'font-regular'} hover:text-gray-300 transition-colors`}>
+          <li className={`${pathname === '/' ? 'font-bold' : 'font-regular'} hover:text-gray-300 transition-colors`}>
             <Link href="/">Home</Link>
+          </li>
+          <li className={`${pathname === '/listkhodam' ? 'font-bold' : 'font-regular'} hover:text-gray-300 transition-colors`}>
+            <Link href="/listkhodam">List Khodam</Link>
           </li>
           <li className={`${pathname === '/developer' ? 'font-bold' : 'font-regular'} hover:text-gray-300 transition-colors`}>
             <Link href="/developer">Developer</Link>
