@@ -13,44 +13,35 @@ function KhodamCard() {
     gambar: 'anyadefault.png',
     hasilKhodam: '',
     isSelesai: false,
-    currentIndex: 0,
+    currentMantraIndex: 0,
+    currentMantra: '',
     error: null,
   });
   const [listKhodam, setListKhodam] = useState([]);
   const [listMantra, setListMantra] = useState([]);
 
-  useEffect(() => {
-    const fetchKhodamAndMantraTexts = async () => {
-      try {
-        const { data: khodamData, error: khodamError } = await supabase
-          .from('list_khodam')
-          .select('text_list');
-        if (khodamError) throw khodamError;
-        setListKhodam(khodamData.map(item => item.text_list));
+  const fetchKhodamAndMantraTexts = useCallback(async () => {
+    try {
+      setState(prev => ({ ...prev, error: null }));
+      const [khodamResponse, mantraResponse] = await Promise.all([
+        supabase.from('list_khodam').select('text_list'),
+        supabase.from('list_mantra').select('text_list')
+      ]);
 
-        const { data: mantraData, error: mantraError } = await supabase
-          .from('list_mantra')
-          .select('text_list');
-        if (mantraError) throw mantraError;
-        setListMantra(mantraData.map(item => item.text_list));
-      } catch (error) {
-        console.error('Error fetching data:', error);
-      }
-    };
+      if (khodamResponse.error) throw khodamResponse.error;
+      if (mantraResponse.error) throw mantraResponse.error;
 
-    fetchKhodamAndMantraTexts();
-
-    let interval;
-    if (state.isChecking) {
-      interval = setInterval(() => {
-        setState(prevState => ({
-          ...prevState,
-          currentIndex: prevState.currentIndex === listMantra.length - 1 ? 0 : prevState.currentIndex + 1,
-        }));
-      }, listMantra.length * 800);
+      setListKhodam(khodamResponse.data.map(item => item.text_list));
+      setListMantra(mantraResponse.data.map(item => item.text_list));
+    } catch (error) {
+      console.error('Error fetching data:', error);
+      setState(prev => ({ ...prev, error: 'Gagal mengambil data. Silakan coba lagi.' }));
     }
-    return () => clearInterval(interval);
-  }, [state.isChecking, listMantra.length]);
+  }, []);
+
+  useEffect(() => {
+    fetchKhodamAndMantraTexts();
+  }, [fetchKhodamAndMantraTexts]);
 
   const saveToSupabase = async (nama, hasil) => {
     try {
@@ -67,19 +58,40 @@ function KhodamCard() {
 
   const handleCekKhodam = () => {
     if (!state.namaKhodam) return;
-    setState(prevState => ({ ...prevState, isChecking: true, gambar: 'anya2.png', error: null }));
+    
+    setState(prevState => ({ 
+      ...prevState, 
+      isChecking: true, 
+      gambar: 'anya2.png', 
+      error: null,
+      currentMantraIndex: 0,
+      currentMantra: listMantra[0] || ''
+    }));
 
-    setTimeout(() => {
-      const randomKhodam = listKhodam[Math.floor(Math.random() * listKhodam.length)];
-      setState(prevState => ({
-        ...prevState,
-        hasilKhodam: randomKhodam,
-        gambar: 'anya3.png',
-        isChecking: false,
-        isSelesai: true,
-      }));
-      saveToSupabase(state.namaKhodam, randomKhodam);
-    }, listMantra.length * 2000);
+    let mantraIndex = 0;
+    const minMantraCount = 3; // Minimal 3 mantra yang ditampilkan
+    const mantraInterval = setInterval(() => {
+      mantraIndex++;
+      
+      if (mantraIndex < Math.max(minMantraCount, listMantra.length)) {
+        setState(prevState => ({
+          ...prevState,
+          currentMantraIndex: mantraIndex,
+          currentMantra: listMantra[mantraIndex % listMantra.length]
+        }));
+      } else {
+        clearInterval(mantraInterval);
+        const randomKhodam = listKhodam[Math.floor(Math.random() * listKhodam.length)];
+        setState(prevState => ({
+          ...prevState,
+          hasilKhodam: randomKhodam,
+          gambar: 'anya3.png',
+          isChecking: false,
+          isSelesai: true,
+        }));
+        saveToSupabase(state.namaKhodam, randomKhodam);
+      }
+    }, 2000); // Setiap mantra ditampilkan selama 2 detik
   };
 
   return (
@@ -107,31 +119,14 @@ function KhodamCard() {
                   <h1 className="text-white text-2xl md:text-4xl font-bold pt-2 md:pt-4 animate-pulse">Cek Khodam Kamu! 🌟</h1>
                 )}
                 {state.isChecking && (
-                  <div className="text-white mt-2 md:mt-4 text-xl md:text-2xl px-4 md:px-0">
-                    {listMantra.map((text, index) => (
-                      <p 
-                        key={index} 
-                        className={`
-                          ${index === state.currentIndex ? 'block' : 'hidden'}
-                          animate-pulse
-                          transition-all duration-300
-                          transform hover:scale-105
-                          bg-gradient-to-r from-purple-500 via-pink-500 to-purple-500
-                          bg-clip-text text-transparent
-                          font-bold
-                          p-4 mx-2 md:mx-0
-                          rounded-lg
-                          shadow-lg
-                          border border-purple-500/30
-                          backdrop-blur-sm
-                          flex items-center justify-center gap-2
-                        `}
-                      >
-                        <span className="animate-spin">✨</span>
-                        {text}
-                        <span className="animate-spin">✨</span>
+                  <div className="text-center mt-4 px-4">
+                    <div className="bg-gray-800/50 p-6 rounded-lg border border-purple-500/30 shadow-lg">
+                      <p className="text-xl md:text-2xl text-white font-medium animate-pulse">
+                        <span className="inline-block animate-spin mr-2">✨</span>
+                        {state.currentMantra}
+                        <span className="inline-block animate-spin ml-2">✨</span>
                       </p>
-                    ))}
+                    </div>
                   </div>
                 )}
                 {state.isSelesai && !state.isChecking && (

@@ -1,16 +1,12 @@
 'use client'
 
-import React, { useState, useEffect } from 'react'
-import { useRouter, usePathname } from 'next/navigation'
+import React, { useState } from 'react'
+import { usePathname } from 'next/navigation'
 import Link from 'next/link'
 
 function Navbar() {
   const pathname = usePathname()
   const [isOpen, setIsOpen] = useState(false)
-
-  useEffect(() => {
-    setCurrentPath(window.location.pathname)
-  }, [])
 
   return (
     <nav className="max-w-6xl mx-auto py-4 md:py-8 px-4">
